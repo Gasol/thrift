@@ -14,7 +14,8 @@ Build-Depends-Indep:
  libservlet2.5-java,
  libcommons-codec-java,
  libcommons-lang-java,
- libhttpclient-java
+ libhttpclient-java,
+ libmaven-ant-tasks-java
 Maintainer: Thrift Developer's <dev@thrift.apache.org>
 Homepage: http://thrift.apache.org/
 Vcs-Svn: https://svn.apache.org/repos/asf/thrift
