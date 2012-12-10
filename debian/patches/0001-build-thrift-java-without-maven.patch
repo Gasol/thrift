@@ -1,0 +1,89 @@
+--- a/lib/java/build.xml
++++ b/lib/java/build.xml
+@@ -77,6 +77,24 @@
+     <pathelement location="${test.jar.file}"/>
+   </path>
+ 
++  <path id="maven.classpath">
++    <pathelement location="/usr/share/java/maven-ant-tasks.jar"/>
++    <pathelement location="/usr/share/java/maven-project.jar"/>
++    <pathelement location="/usr/share/java/maven-core.jar"/>
++    <pathelement location="/usr/share/java/plexus-container-default.jar"/>
++    <pathelement location="/usr/share/java/plexus-utils.jar"/>
++    <pathelement location="/usr/share/java/plexus-interpolation.jar"/>
++    <pathelement location="/usr/share/java/maven-error-diagnostics.jar"/>
++    <pathelement location="/usr/share/java/classworlds.jar"/>
++    <pathelement location="/usr/share/java/wagon-provider-api.jar"/>
++    <pathelement location="/usr/share/java/maven-model.jar"/>
++    <pathelement location="/usr/share/java/maven-artifact.jar"/>
++    <pathelement location="/usr/share/java/maven-settings.jar"/>
++    <pathelement location="/usr/share/java/maven-archiver.jar"/>
++    <pathelement location="/usr/share/java/maven-plugin-api.jar"/>
++    <pathelement location="/usr/share/java/maven-plugin-descriptor.jar"/>
++  </path>
++
+   <!-- Tasks --> 
+   <target name="init" depends="setup.init,mvn.init" unless="init.finished">
+     <property name="init.finished" value="true"/>
+@@ -253,7 +271,11 @@
+   </target>
+ 
+   <target name="mvn.ant.tasks.download" depends="setup.init,mvn.ant.tasks.check,proxy" unless="mvn.ant.tasks.found">
+-    <get src="${mvn.ant.task.url}/${mvn.ant.task.jar}" dest="${build.tools.dir}/${mvn.ant.task.jar}" usetimestamp="true"/>
++    <copy todir="${build.tools.dir}">
++      <fileset dir="/usr/share/java">
++        <include name="maven-ant-tasks.jar"/>
++      </fileset>
++    </copy>
+   </target>
+ 
+   <target name="mvn.ant.tasks.check">
+@@ -264,7 +286,7 @@
+ 
+   <target name="mvn.init" depends="mvn.ant.tasks.download" unless="mvn.finished">
+     <!-- Download mvn ant tasks, download dependencies, and setup pom file -->
+-    <typedef uri="antlib:org.apache.maven.artifact.ant" classpath="${build.tools.dir}/${mvn.ant.task.jar}"/>
++    <typedef uri="antlib:org.apache.maven.artifact.ant" classpathref="maven.classpath"/>
+ 
+     <!-- remote repositories used to download dependencies from -->
+     <artifact:remoteRepository id="central" url="${mvn.repo}"/>
+@@ -316,25 +338,26 @@
+     <!-- Generate the pom file -->
+     <artifact:writepom pomRefId="pom" file="${pom.xml}"/>
+ 
+-    <!-- Download the dependencies -->
+-    <artifact:dependencies filesetId="build-dependency-jars" pomRefId="pom"/>
+-
+     <!-- Copy the dependencies to the build/lib dir -->
+     <copy todir="${build.dir}/lib">
+-      <fileset refid="build-dependency-jars"/>
+-      <mapper type="flatten"/>
++      <fileset dir="/usr/share/java">
++	<include name="commons-logging.jar"/>
++	<include name="commons-lang.jar"/>
++	<include name="commons-codec.jar"/>
++	<include name="log4j-1.2.jar"/>
++	<include name="servlet-api-2.5.jar"/>
++	<include name="httpclient.jar"/>
++	<include name="httpcore.jar"/>
++	<include name="slf4j-api.jar"/>
++	<include name="slf4j-log4j12.jar"/>
++      </fileset>
+     </copy>
+ 
+-    <!-- Dependencies needed for testing -->
+-    <artifact:dependencies filesetId="test-dependency-jars" useScope="runtime">
+-      <dependency groupId="org.slf4j" artifactId="slf4j-log4j12" version="1.5.8"/>
+-      <dependency groupId="junit" artifactId="junit" version="4.4"/>
+-    </artifact:dependencies>
+-
+     <!-- Copy the test dependencies to the build/lib dir -->
+     <copy todir="${build.dir}/lib">
+-      <fileset refid="test-dependency-jars"/>
+-      <mapper type="flatten"/>
++      <fileset dir="/usr/share/java">
++        <include name="junit.jar"/>
++      </fileset>
+     </copy>
+ 
+     <property name="mvn.finished" value="true"/>
