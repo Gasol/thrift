@@ -4,9 +4,17 @@ Priority: extra
 Build-Depends: debhelper (>= 5), build-essential, mono-gmcs, python-dev, ant,
     mono-devel,  libmono-system-web2.0-cil, erlang-base, ruby1.8-dev, mongrel, autoconf, python-support,
     automake, pkg-config, libtool, bison, flex, libboost-dev | libboost1.40-dev, python-all,
-    python-all-dev, python-all-dbg, openjdk-6-jdk | java-sdk, libcommons-lang-java,
+    python-all-dev, python-all-dbg, openjdk-6-jdk | java-sdk,
     libboost-test-dev | libboost-test1.40-dev, libevent-dev, perl (>= 5.8.0-7),
     php5, php5-dev, libglib2.0-dev
+Build-Depends-Indep:
+ liblog4j1.2-java (>= 1.2.4),
+ libslf4j-java (>= 1.5.8),
+ junit4 (>= 4.4),
+ libservlet2.5-java,
+ libcommons-codec-java,
+ libcommons-lang-java,
+ libhttpclient-java
 Maintainer: Thrift Developer's <dev@thrift.apache.org>
 Homepage: http://thrift.apache.org/
 Vcs-Svn: https://svn.apache.org/repos/asf/thrift
