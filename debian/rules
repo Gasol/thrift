@@ -78,6 +78,10 @@ build-indep-stamp: configure-stamp
 	# Perl
 	$(MAKE) -C $(CURDIR)/lib/perl INSTALLDIRS=vendor
 
+	mkdir -p $(CURDIR)/contrib/fb303/perl
+	$(CURDIR)/compiler/cpp/thrift --gen perl --out $(CURDIR)/contrib/fb303/perl \
+		$(CURDIR)/contrib/fb303/if/fb303.thrift
+
 	touch $@
 
 clean:
@@ -117,6 +121,10 @@ install-indep:
 		$(CURDIR)/debian/ruby-thrift/usr/lib/ruby/1.9.1
 	cp -r $(CURDIR)/lib/rb/lib/thrift \
 		$(CURDIR)/debian/ruby-thrift/usr/lib/ruby/1.9.1
+
+	mkdir -p $(CURDIR)/debian/libfacebook-fb303-perl/usr/lib/perl5
+	cp -r $(CURDIR)/contrib/fb303/perl \
+		$(CURDIR)/debian/libfacebook-fb303-perl/usr/lib/perl5
 
 	# C#
 	mkdir -p $(CURDIR)/debian/libthrift-cil/usr/lib/cli/thrift/ && \
