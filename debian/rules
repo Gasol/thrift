@@ -155,8 +155,8 @@ install-arch:
 	# Python
 	cd $(CURDIR)/lib/py && \
 	for py in $(PYVERS); do \
-		$$py setup.py install --no-compile --root=$(CURDIR)/debian/python-thrift; \
-		$$py-dbg setup.py install --no-compile --root=$(CURDIR)/debian/python-thrift-dbg; \
+		$$py setup.py install --no-compile --root=$(CURDIR)/debian/python-thrift --prefix=/usr; \
+		$$py-dbg setup.py install --no-compile --root=$(CURDIR)/debian/python-thrift-dbg --prefix=/usr; \
 	done
 
 	find $(CURDIR)/debian/python-thrift-dbg -name "*.pyc" -print0 | xargs -0 rm -f
