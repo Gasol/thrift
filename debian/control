@@ -85,7 +85,7 @@ Description: Ruby bindings for Thrift
 
 Package: libthrift-java
 Architecture: all
-Section: libs
+Section: java
 Depends: java-gcj-compat | java1-runtime | java2-runtime, ${misc:Depends}
 Recommends: libcommons-lang-java
 Description: Java bindings for Thrift
