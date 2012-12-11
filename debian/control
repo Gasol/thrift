@@ -53,7 +53,7 @@ Description: Python bindings for Thrift
 
 Package: python-thrift-dbg
 Architecture: any
-Section: python
+Section: debug
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-thrift (= ${binary:Version}), python-all-dbg
 Provides: ${python:Provides}
 Description: Python bindings for Thrift (debug version)
