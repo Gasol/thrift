@@ -86,7 +86,7 @@ Description: Ruby bindings for Thrift
 Package: libthrift-java
 Architecture: all
 Section: java
-Depends: java-gcj-compat | java1-runtime | java2-runtime, ${misc:Depends}
+Depends: ${misc:Depends}
 Recommends: libcommons-lang-java
 Description: Java bindings for Thrift
  Thrift is a software framework for scalable cross-language services
