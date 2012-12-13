@@ -76,7 +76,8 @@ build-indep-stamp: configure-stamp
 	$(MAKE) -C $(CURDIR)/lib/rb
 
 	# Perl
-	$(MAKE) -C $(CURDIR)/lib/perl INSTALLDIRS=vendor
+	cd lib/perl && \
+		perl Makefile.PL INSTALLDIRS=vendor PREFIX=/usr
 
 	touch $@
 
